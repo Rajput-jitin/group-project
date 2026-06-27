@@ -35,7 +35,7 @@ const TYPE_MAP: Record<string, string> = {
   pension: 'Senior Citizen',
 }
 
-const STATES = ['Andhra Pradesh','Bihar','Delhi','Gujarat','Haryana','Karnataka','Kerala','Madhya Pradesh','Maharashtra','Odisha','Punjab','Rajasthan','Tamil Nadu','Telangana','Uttar Pradesh','West Bengal']
+const STATES = ['Andhra Pradesh', 'Bihar', 'Delhi', 'Gujarat', 'Haryana', 'Karnataka', 'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Odisha', 'Punjab', 'Rajasthan', 'Tamil Nadu', 'Telangana', 'Uttar Pradesh', 'West Bengal']
 
 const CAT_COLORS: Record<string, string> = {
   Student: 'bg-blue-100 text-blue-700',
@@ -69,14 +69,14 @@ export default function Home() {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState('all')
   const [showForm, setShowForm] = useState(false)
-  const [lang, setLang] = useState<'en'|'hi'>('en')
+  const [lang, setLang] = useState<'en' | 'hi'>('en')
   const [formStep, setFormStep] = useState(1)
-  const [profile, setProfile] = useState({ name:'', age:'', gender:'', state:'', occupation:'', income:'', category:'', education:'', disability: false })
+  const [profile, setProfile] = useState({ name: '', age: '', gender: '', state: '', occupation: '', income: '', category: '', education: '', disability: false })
   const [results, setResults] = useState<any[] | null>(null)
   const [analyzing, setAnalyzing] = useState(false)
   const [chatOpen, setChatOpen] = useState(false)
   const [chatMsg, setChatMsg] = useState('')
-  const [chatHistory, setChatHistory] = useState<{role:string,text:string}[]>([
+  const [chatHistory, setChatHistory] = useState<{ role: string, text: string }[]>([
     { role: 'bot', text: 'नमस्ते! / Hello! I am SchemeSeva AI. Tell me about yourself and I will find matching government schemes for you.' }
   ])
 
@@ -171,9 +171,9 @@ export default function Home() {
           </div>
           <div style={{ display: 'flex', gap: 24, fontSize: 14, color: '#444' }}>
             {['Browse Schemes', 'Check Eligibility', 'Categories', 'Dashboard'].map(n => (
-              <a key={n} href={`#${n.toLowerCase().replace(' ','-')}`} style={{ textDecoration: 'none', color: '#444', fontWeight: 500 }}
-                onMouseOver={e => (e.currentTarget.style.color='#0055A4')}
-                onMouseOut={e => (e.currentTarget.style.color='#444')}>{n}</a>
+              <a key={n} href={`#${n.toLowerCase().replace(' ', '-')}`} style={{ textDecoration: 'none', color: '#444', fontWeight: 500 }}
+                onMouseOver={e => (e.currentTarget.style.color = '#0055A4')}
+                onMouseOut={e => (e.currentTarget.style.color = '#444')}>{n}</a>
             ))}
           </div>
           <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
@@ -199,8 +199,8 @@ export default function Home() {
             ✨ {lang === 'en' ? 'AI-Powered • 35 Curated Schemes • Free Forever' : 'AI-संचालित • 35 सरकारी योजनाएं • हमेशा मुफ़्त'}
           </div>
           <h1 style={{ fontSize: 'clamp(32px, 6vw, 58px)', fontWeight: 900, color: '#0b1c30', lineHeight: 1.15, margin: '0 0 20px', letterSpacing: '-0.02em' }}>
-            {lang === 'en' ? <>Find Government Schemes<br /><span style={{ background: 'linear-gradient(135deg, #0055A4, #28A745, #FF9933)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>You Are Eligible For</span></> 
-            : <>सरकारी योजनाएं खोजें<br /><span style={{ background: 'linear-gradient(135deg, #0055A4, #28A745, #FF9933)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>जिनके लिए आप पात्र हैं</span></>}
+            {lang === 'en' ? <>Find Government Schemes<br /><span style={{ background: 'linear-gradient(135deg, #0055A4, #28A745, #FF9933)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>You Are Eligible For</span></>
+              : <>सरकारी योजनाएं खोजें<br /><span style={{ background: 'linear-gradient(135deg, #0055A4, #28A745, #FF9933)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>जिनके लिए आप पात्र हैं</span></>}
           </h1>
           <p style={{ fontSize: 18, color: '#555', maxWidth: 580, margin: '0 auto 32px', lineHeight: 1.7 }}>
             {lang === 'en' ? 'Discover government benefits, scholarships, subsidies and welfare schemes tailored to your profile using AI.' : 'AI का उपयोग करके आपके प्रोफ़ाइल के अनुसार सरकारी लाभ, छात्रवृत्ति और योजनाएं खोजें।'}
@@ -241,10 +241,12 @@ export default function Home() {
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
             {CATEGORIES.map(c => (
               <button key={c.id} onClick={() => setCategory(c.id)}
-                style={{ padding: '8px 16px', borderRadius: 20, border: '1px solid', cursor: 'pointer', fontWeight: 600, fontSize: 13, transition: 'all 0.2s',
+                style={{
+                  padding: '8px 16px', borderRadius: 20, border: '1px solid', cursor: 'pointer', fontWeight: 600, fontSize: 13, transition: 'all 0.2s',
                   background: category === c.id ? '#0055A4' : 'white',
                   borderColor: category === c.id ? '#0055A4' : '#ddd',
-                  color: category === c.id ? 'white' : '#444' }}>
+                  color: category === c.id ? 'white' : '#444'
+                }}>
                 {c.emoji} {c.label}
               </button>
             ))}
@@ -263,7 +265,7 @@ export default function Home() {
                   <h2 style={{ fontWeight: 800, fontSize: 22, margin: '0 0 8px', color: '#0b1c30' }}>Your Personalized Eligibility Report</h2>
                   <p style={{ margin: 0, color: '#555', lineHeight: 1.6 }}>Based on your profile, our AI found <strong style={{ color: '#28A745' }}>{results.length} matching schemes</strong>. Schemes are ranked by your eligibility score.</p>
                   <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
-                    {[{n: results.length, l: 'Eligible', c: '#28A745', bg: '#f0fdf4'}, {n: 3, l: 'Potential', c: '#FF9933', bg: '#fffbeb'}, {n: 35, l: 'Total Analyzed', c: '#0055A4', bg: '#eff6ff'}].map(s => (
+                    {[{ n: results.length, l: 'Eligible', c: '#28A745', bg: '#f0fdf4' }, { n: 3, l: 'Potential', c: '#FF9933', bg: '#fffbeb' }, { n: 35, l: 'Total Analyzed', c: '#0055A4', bg: '#eff6ff' }].map(s => (
                       <div key={s.l} style={{ background: s.bg, border: `1px solid ${s.c}30`, borderRadius: 12, padding: '10px 18px', textAlign: 'center' }}>
                         <div style={{ fontWeight: 800, fontSize: 22, color: s.c }}>{s.n}</div>
                         <div style={{ fontSize: 11, color: '#666' }}>{s.l}</div>
@@ -455,8 +457,10 @@ export default function Home() {
             <div style={{ maxHeight: 300, overflowY: 'auto', padding: '16px' }}>
               {chatHistory.map((m, i) => (
                 <div key={i} style={{ marginBottom: 12, textAlign: m.role === 'user' ? 'right' : 'left' }}>
-                  <div style={{ display: 'inline-block', maxWidth: '80%', padding: '8px 14px', borderRadius: m.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                    background: m.role === 'user' ? '#0055A4' : '#f3f4f6', color: m.role === 'user' ? 'white' : '#333', fontSize: 13, lineHeight: 1.5 }}>
+                  <div style={{
+                    display: 'inline-block', maxWidth: '80%', padding: '8px 14px', borderRadius: m.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+                    background: m.role === 'user' ? '#0055A4' : '#f3f4f6', color: m.role === 'user' ? 'white' : '#333', fontSize: 13, lineHeight: 1.5
+                  }}>
                     {m.text}
                   </div>
                 </div>
